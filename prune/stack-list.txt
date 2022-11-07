@@ -1,0 +1,8 @@
+- id: PipelineStack
+  name: PipelineStack
+  environment:
+    account: "275752324371"
+    region: us-east-1
+    name: aws://275752324371/us-east-1
+
+

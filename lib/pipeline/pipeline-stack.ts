@@ -28,7 +28,7 @@ export class PipelineStack extends Stack {
       pipelineName,
       synth: new ShellStep('Synth', {
         input: source,
-        commands: ['ls','cd CDK','npm ci', 'npm run build', 'npx cdk synth'],
+        commands: ['npm ci', 'npm run build', 'npx cdk synth'],
         primaryOutputDirectory: 'cdk.out'
       })
     });

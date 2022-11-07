@@ -13,13 +13,19 @@ export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const bootstrap_role = 'arn:aws:iam::275752324371:role/cdk-hnb659fds-cfn-exec-role-275752324371-us-east-1';
     const pipelineName = 'MasterPipeline';
     const repo = 'ConnectQuinn/275752324371-CDK';
     const branch = 'main';
     const prune = true;
 
-    const role = iam.Role.fromRoleArn(this,'cdk-imported-role',bootstrap_role)
+    const role = new iam.Role(this, 'bootstrap-role', {
+      assumedBy: new iam.ServicePrincipal('cloudformation.amazonaws.com'),
+      description: 'An example IAM role in AWS CDK',
+      managedPolicies: [
+        iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
+      ],
+    });
+    role.grantAssumeRole(new iam.ServicePrincipal('codebuild.amazonaws.com'))
     
     const source = CodePipelineSource.gitHub(repo,branch)
 

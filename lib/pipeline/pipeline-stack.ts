@@ -20,12 +20,18 @@ export class PipelineStack extends Stack {
 
     const role = new iam.Role(this, 'bootstrap-role', {
       assumedBy: new iam.ServicePrincipal('cloudformation.amazonaws.com'),
-      description: 'An example IAM role in AWS CDK',
+      description: 'CDK Deployment Role',
       managedPolicies: [
         iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'),
       ],
     });
-    role.grantAssumeRole(new iam.ServicePrincipal('codebuild.amazonaws.com'))
+    role.assumeRolePolicy?.addStatements(
+      new iam.PolicyStatement({
+        actions: ['sts:AssumeRole'],
+        effect: iam.Effect.ALLOW,
+        principals: [new iam.ServicePrincipal('codebuild.amazonaws.com')],
+      }),
+    );
     
     const source = CodePipelineSource.gitHub(repo,branch)
 
@@ -36,14 +42,15 @@ export class PipelineStack extends Stack {
         commands: ['npm ci', 'npm run build', 'npx cdk synth']
       })
     });
+    // No Dependencies Wave
     const WaveOne = pipeline.addWave('WaveOne')
 
     // US-EAST-1 Deployment
-    // const USEast1_stage = new USeast1(this, "us-east-1", {
-    //   env: { region: "us-east-1" },
-    // })
-    // Tags.of(USEast1_stage).add('pipeline', pipelineName);
-    // WaveOne.addStage(USEast1_stage);
+    const USEast1_stage = new USeast1(this, "us-east-1", {
+      env: { region: "us-east-1" },
+    })
+    Tags.of(USEast1_stage).add('pipeline', pipelineName);
+    WaveOne.addStage(USEast1_stage);
 
 
     //Pruning of ENV

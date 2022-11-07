@@ -4,3 +4,7 @@
 * Must create a secret called github-token in same region you deploy the pipeline for everything to work
 * `aws sso login --profile ssoDev`  Login to Dev env
 * `npx cdk deploy --profile ssoDev` Must deploy manually the first time then it will watch this repo
+
+
+# REF
+* https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html

@@ -13,7 +13,6 @@ export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // https://docs.aws.amazon.com/cdk/v2/guide/cdk_pipeline.html
     const bootstrap_role = 'arn:aws:iam::275752324371:role/cdk-hnb659fds-cfn-exec-role-275752324371-us-east-1';
     const pipelineName = 'MasterPipeline';
     const repo = 'ConnectQuinn/275752324371-CDK';

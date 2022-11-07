@@ -28,8 +28,7 @@ export class PipelineStack extends Stack {
       pipelineName,
       synth: new ShellStep('Synth', {
         input: source,
-        commands: ['npm ci', 'npm run build', 'npx cdk synth'],
-        primaryOutputDirectory: 'cdk.out'
+        commands: ['npm ci', 'npm run build', 'npx cdk synth']
       })
     });
     const WaveOne = pipeline.addWave('WaveOne')

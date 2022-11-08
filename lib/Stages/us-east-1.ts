@@ -12,6 +12,6 @@ export class USeast1 extends Stage {
       super(scope, id, props);
   
       new EKSCluster(this, 'dev-EKSCluster');
-      new awsiacsolutions(this, 'dev-awsiacsolutions')
+      // new awsiacsolutions(this, 'dev-awsiacsolutions')
     }
 }

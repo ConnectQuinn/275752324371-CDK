@@ -26,11 +26,12 @@ export class SSLCert extends Construct {
               zoneName
             }
         );
-        new certificatemanager.DnsValidatedCertificate(
+        const cert = new certificatemanager.DnsValidatedCertificate(
             this,
             app_name+'-DomainsCertificate',
             {
               domainName: `*.`+zoneName,
+              subjectAlternativeNames:[zoneName],
               hostedZone,
               region: Stack.of(this).region
             }

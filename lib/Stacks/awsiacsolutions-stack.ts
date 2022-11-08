@@ -14,7 +14,7 @@ constructor(scope: Construct, id: string, props?: StackProps) {
     const owner = 'ConnectQuinn';
     const repo = '275752324371-awsiacsolutions';
     const branch = 'master';
-    const oauthToken_name = 'awsiacsolutions';
+    const oauthToken_name = 'github-token';
     const hostedZoneId = 'Z00616852QBX62HWICYXW';
     const zoneName = 'awsiacsolutions.com';
 
